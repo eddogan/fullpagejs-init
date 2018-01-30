@@ -1,0 +1,81 @@
+    $(document).ready(function() {
+        $('#fullpage').fullpage({
+	      scrollingSpeed: 1200,  
+          anchors: ['intro_video', 'family_business', 'delaware_basin', 'accurate_evaluations', 'start_the_process'],
+          onLeave: function(index, nextIndex, direction){
+          
+          //----------------CHANGE THE BORDER COLORS BASED ON SECTION
+          
+              if(direction == 'down') {
+                var nextSection = $(this).next();
+                if(nextSection.hasClass('light')){
+                    $('header').addClass('lightheader');
+                    $('footer').addClass('lightfooter');
+                } else {
+                    $('header').removeClass('lightheader');
+                    $('footer').removeClass('lightfooter');
+                }
+              }
+
+              if(direction == 'up') {
+                  var nextSection = $(this).prev();
+                  if(nextSection.hasClass('light')){
+                      $('header').addClass('lightheader');
+                      $('footer').addClass('lightfooter');
+                  } else {
+                      $('header').removeClass('lightheader');
+                      $('footer').removeClass('lightfooter');
+                  }
+              }
+
+              if(nextIndex == 1) {
+                  $('#logo').show();
+                  $('#down').show();
+              } else {
+                  $('#logo').hide();
+                  $('#down').hide();
+              }
+
+              if(nextIndex == 5) {
+                  var vidsrc = $('#videosrc5').html();
+                  $('#video5').html(vidsrc);
+               }
+
+              if(nextIndex == 2) {
+                  var vidsrc = $('#videosrc2').html();
+                  $('#video2').html(vidsrc);
+              } 
+          }, 
+          afterLoad: function(anchorLink, index){ 
+          
+          //------------PLAY VIDEOS WHEN THE SLIDE IS ACTIVE    
+          
+              if(anchorLink == 'intro_video'){
+                  var vidsrc = $('#videosrc1').html();
+                  $('#video1').html(vidsrc);
+                  $('video').get(0).play();
+              } else {
+                  $('video').get(0).pause();
+              }
+              
+              if(anchorLink == 'family_business'){
+                  $('video').get(1).play();
+              } else {
+                  $('video').get(1).pause();
+              }
+              
+              if(anchorLink == 'start_the_process'){
+                  $('video').get(2).play();
+              } else {
+                  $('video').get(2).pause();
+              }
+
+          }
+          
+        });
+        
+    $('#down').click(function(){
+		    $.fn.fullpage.moveSectionDown();
+		});
+        
+    });
